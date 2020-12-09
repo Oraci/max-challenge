@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import theme from 'theme/theme-styled';
+import GlobalStyle from 'theme/global-style';
+
+import Layout from 'components/Layout';
+
+import Home from 'pages/Home';
+import Detail from 'pages/Detail';
+import Favorites from 'pages/Favorites';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/artist/detail/:id" component={Detail} />
+            <Route exact path="/favorites" component={Favorites} />
+          </Switch>
+        </Layout>
+      </ThemeProvider>
+    </Router>
   );
 }
 
