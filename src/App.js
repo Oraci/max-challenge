@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import theme from 'theme/theme-styled';
 import GlobalStyle from 'theme/global-style';
 
+import { ArtistsProvider } from 'context/ArtistsContext';
+
 import Layout from 'components/Layout';
 
 import Home from 'pages/Home';
@@ -15,14 +17,16 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/artist/detail/:id" component={Detail} />
-            <Route exact path="/favorites" component={Favorites} />
-          </Switch>
-        </Layout>
+        <ArtistsProvider>
+          <GlobalStyle />
+          <Layout>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/artist/detail/:id" component={Detail} />
+              <Route exact path="/favorites" component={Favorites} />
+            </Switch>
+          </Layout>
+        </ArtistsProvider>
       </ThemeProvider>
     </Router>
   );

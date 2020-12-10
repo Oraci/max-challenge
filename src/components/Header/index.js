@@ -1,11 +1,17 @@
 import React from 'react';
+import logo from 'assets/logo.png';
 
-import { Container, Content } from './styles';
+import { Container, Logo, Content, Img, MyList } from './styles';
 
-function Header({ children }) {
+function Header() {
   return (
     <Container>
-      <Content>{children}</Content>
+      <Logo to="/">
+        <Img src={logo} />
+      </Logo>
+      <Content>
+        <MyList to="/">View my list</MyList>
+      </Content>
     </Container>
   );
 }

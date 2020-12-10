@@ -13,9 +13,9 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-size: 14px;
-    color: ${({ theme }) => theme.text.white};
+    color: black;
     font-family: 'Roboto', sans-serif;
-    background: black;
+    background:  ${({ theme }) => theme.background.white};
   }
 
   p, h1, h2, h3 {

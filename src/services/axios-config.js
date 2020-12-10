@@ -5,7 +5,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 const interceptorRequest = (config) => ({
   ...config,
   params: {
-    api_key: process.env.REACT_APP_API_ID,
+    apikey: process.env.REACT_APP_API_ID,
     ...config.params,
   },
 });
