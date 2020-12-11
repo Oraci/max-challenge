@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   height: 100px;
-  background: #000000;
+  background: ${({ theme }) => theme.background.black};
   display: flex;
 `;
 
@@ -12,7 +12,7 @@ export const Content = styled.div`
   flex: 1;
   align-items: center;
   justify-content: flex-end;
-  color: #f07580;
+  color: ${({ theme }) => theme.text.rose};
   font-weight: bold;
   font-size: 18px;
   line-height: 24px;
