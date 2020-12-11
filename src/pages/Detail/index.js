@@ -25,7 +25,10 @@ function Detail() {
       .then((response) => {
         setSimilarArtists(response?.data?.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      });
   };
 
   useEffect(() => {
