@@ -1,7 +1,7 @@
 # React Coding Challenge
 
 ## `Music challenge`
-The frontend was created using react, context-api and styled components. For the endpoints I used as required documentation.
+The frontend was created using react, context-api and styled components. The main search input I used react-select. For the endpoints I used as required documentation.
 
 - Created a screen home that is possible to search by genre, the result card list is possible to add and remove from favorite list.
 
