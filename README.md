@@ -5,7 +5,7 @@ The frontend was created using react, context-api and styled components. For the
 
 - Created a screen home that is possible to search by genre, the result card list is possible to add and remove from favorite list.
 
-- Artist detail screen was created, with the possibility of returning to the home and go to the list of favorites.
+- Artist detail screen was created, with the possibility of returning to the home and go to the list of favorites, and the similiar artists is showed too.
 
 - Favorites list screen was created, with the possibility to remove from favorite list.
 
