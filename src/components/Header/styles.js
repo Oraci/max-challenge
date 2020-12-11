@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from 'assets/logo.png';
 
 export const Container = styled.div`
   height: 100px;
@@ -30,11 +29,4 @@ export const Logo = styled(Link)`
 export const Img = styled.img`
   width: 120px;
   height: 90px;
-`;
-
-export const MyList = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 10px;
 `;

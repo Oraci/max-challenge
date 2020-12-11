@@ -2,17 +2,25 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import { useHistory } from 'react-router-dom';
 
 import Header from 'components/Header';
 import ArtistCard from 'components/ArtistCard';
 
 import { ArtistsContext, Actions } from 'context/ArtistsContext';
 
-import { Container, ContainerSearch, ContainerArtists } from './styles';
+import {
+  Container,
+  ContainerSearch,
+  ContainerArtists,
+  CustomStyles,
+} from './styles';
 
 function Home() {
   const { state, dispatch } = useContext(ArtistsContext);
   const { artists, selectedOption } = state || {};
+
+  const history = useHistory();
 
   const getArtists = async () => {
     const { value } = selectedOption;
@@ -62,13 +70,28 @@ function Home() {
   useEffect(() => {
     if (selectedOption) {
       getArtists();
-    } else {
-      // dispatch({
-      //   type: Types.SET_ARTISTS_LIST,
-      //   payload: [],
-      // });
     }
   }, [selectedOption]);
+
+  const onHandleTitleClick = useCallback((data) => {
+    dispatch({ type: Actions.SET_SELECTED_ARTIST, payload: data });
+
+    history.push(`/artist/detail/${data?.id}`);
+  }, []);
+
+  const onHandleChange = useCallback((option) => {
+    dispatch({
+      type: Actions.SET_SELECTED_OPTION,
+      payload: option,
+    });
+
+    if (!option) {
+      dispatch({
+        type: Actions.SET_ARTISTS_LIST,
+        payload: [],
+      });
+    }
+  }, []);
 
   return (
     <Container>
@@ -76,26 +99,29 @@ function Home() {
       <ContainerSearch>
         <p>Enter a genre to find artists:</p>
         <AsyncSelect
+          styles={CustomStyles}
           value={selectedOption}
           loadOptions={loadSuggestedOptions}
           cacheOptions
           defaultOptions
           isClearable
-          onChange={(option) =>
-            dispatch({
-              type: Actions.SET_SELECTED_OPTION,
-              payload: option,
-            })
-          }
+          placeholder=""
+          onChange={(option) => onHandleChange(option)}
         />
       </ContainerSearch>
 
-      {artists.length > 0 && (
+      {artists.length > 0 ? (
         <ContainerArtists>
           {artists.map((artist) => (
-            <ArtistCard key={artist.id} data={artist} />
+            <ArtistCard
+              key={artist.id}
+              data={artist}
+              onHandleTitleClick={() => onHandleTitleClick(artist)}
+            />
           ))}
         </ContainerArtists>
+      ) : (
+        <p>No results</p>
       )}
     </Container>
   );

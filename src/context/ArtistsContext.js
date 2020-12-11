@@ -6,12 +6,14 @@ const Actions = {
   SET_ARTISTS_LIST: 'SET_ARTISTS_LIST',
   SET_SELECTED_OPTION: 'SET_SELECTED_OPTION',
   SET_SELECTED_ARTIST: 'SET_SELECTED_ARTIST',
+  SET_MY_LIST_FAVORITES: 'SET_MY_LIST_FAVORITES',
 };
 
 const initialState = {
   artists: [],
   selectedOption: '',
   selectedArtist: {},
+  favorites: [],
 };
 
 function reducer(state, action) {
@@ -24,6 +26,9 @@ function reducer(state, action) {
     }
     case Actions.SET_SELECTED_ARTIST: {
       return { ...state, selectedArtist: action.payload };
+    }
+    case Actions.SET_MY_LIST_FAVORITES: {
+      return { ...state, favorites: action.payload };
     }
     default: {
       return state;

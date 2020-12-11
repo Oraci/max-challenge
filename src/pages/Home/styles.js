@@ -19,3 +19,10 @@ export const ContainerSearch = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+export const CustomStyles = {
+  container: (base) => ({
+    ...base,
+    width: '400px',
+  }),
+};

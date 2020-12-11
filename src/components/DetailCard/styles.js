@@ -45,11 +45,3 @@ export const Info = styled.div`
     margin-bottom: 16px;
   }
 `;
-
-export const ContainerButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Button = styled.button``;

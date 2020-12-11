@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -16,26 +16,6 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
-`;
-
-export const BackToButton = styled.div`
-  padding: 20px 20px 0 0;
-  display: flex;
-  color: ${({ theme }) => theme.text.lightGrey};
-  align-items: center;
-
-  p {
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 18px;
-    letter-spacing: 0.01em;
-  }
-`;
-
-export const BackTo = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
 `;
 
 export const ContainerArtists = styled.div`

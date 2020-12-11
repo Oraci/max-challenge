@@ -1,18 +1,19 @@
-import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+
+import FavoriteButton from 'components/FavoriteButton';
+
+import noImage from 'assets/no-image.png';
 
 import {
   Container,
   Img,
   Info,
   ContainerInfo,
-  ContainerButton,
   ContainerAdditionalInfo,
   ContainerGenres,
-  Button,
 } from './styles';
 
-function Card({ data }) {
+function DetailCard({ data }) {
   const primaryGenre = data?.genres?.filter((genre) => genre.is_primary)?.[0];
 
   const additionalGenres =
@@ -21,10 +22,10 @@ function Card({ data }) {
       ?.map((item) => item.name)
       ?.toString() || '';
 
-  return data ? (
+  return Object.keys(data).length > 0 ? (
     <Container>
       <ContainerInfo>
-        <Img src={data.image} alt={data.name} />
+        <Img src={data.image || noImage} alt={data.name} />
         <Info>
           <h1>{data.name}</h1>
           <p>Primary Genre: {primaryGenre.name}</p>
@@ -36,12 +37,10 @@ function Card({ data }) {
           <p>Additional Genres:</p>
           <p>{additionalGenres}</p>
         </ContainerGenres>
-        <ContainerButton>
-          <Button>Add</Button>
-        </ContainerButton>
+        <FavoriteButton data={data} />
       </ContainerAdditionalInfo>
     </Container>
   ) : null;
 }
 
-export default React.memo(Card);
+export default React.memo(DetailCard);

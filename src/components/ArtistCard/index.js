@@ -1,34 +1,24 @@
-import React, { useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 
-import { ArtistsContext, Actions } from 'context/ArtistsContext';
+import FavoriteButton from 'components/FavoriteButton';
 
-import { Container, Img, Info, ContainerButton, Button } from './styles';
+import noImage from 'assets/no-image.png';
 
-function Card({ data }) {
+import { Container, Img, Info } from './styles';
+
+function ArtistCard({ data, onHandleTitleClick }) {
   const primaryGenre = data?.genres?.filter((genre) => genre.is_primary)?.[0];
-
-  const history = useHistory();
-  const { dispatch } = useContext(ArtistsContext);
-
-  const onHandleClick = useCallback((id) => {
-    dispatch({ type: Actions.SET_SELECTED_ARTIST, payload: data });
-
-    history.push(`/artist/detail/${id}`);
-  }, []);
 
   return data ? (
     <Container>
-      <Img src={data.image} alt={data.name} />
+      <Img src={data.image || noImage} alt={data.name} />
       <Info>
-        <h1 onClick={() => onHandleClick(data.id)}>{data.name}</h1>
+        <h1 onClick={onHandleTitleClick}>{data.name}</h1>
         <p>{primaryGenre.name}</p>
       </Info>
-      <ContainerButton>
-        <Button>Add</Button>
-      </ContainerButton>
+      <FavoriteButton data={data} />
     </Container>
   ) : null;
 }
 
-export default React.memo(Card);
+export default React.memo(ArtistCard);
