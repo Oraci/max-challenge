@@ -1,40 +1,30 @@
 import React, { useState, useContext, useCallback } from 'react';
-import { ArtistsContext, Actions } from 'context/ArtistsContext';
+import firebase from 'services/firebase';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 import { Container, Button } from './styles';
 
 function FavoriteButton({ data }) {
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem('favorites')) || []
-  );
+  const ref = firebase.firestore().doc(`users/teste@gmail.com`);
 
-  const { dispatch } = useContext(ArtistsContext);
+  const [userData, loading] = useDocumentData(ref);
+  const favorites = userData?.favorites || [];
 
   const onHandleRemoveClick = useCallback(() => {
-    const currentList = JSON.parse(localStorage.getItem('favorites')) || [];
+    const newList = favorites.filter((item) => item !== data.id);
 
-    const newList = currentList.filter((item) => item.id !== data.id);
-
-    localStorage.setItem('favorites', JSON.stringify(newList));
-
-    setFavorites(newList);
-    dispatch({ type: Actions.SET_MY_LIST_FAVORITES, payload: newList });
-  }, []);
+    ref.set({ favorites: newList }, { merge: true });
+  }, [favorites]);
 
   const onHandleAddClick = useCallback(() => {
-    const currentList = JSON.parse(localStorage.getItem('favorites')) || [];
+    const newList = [...favorites, data.id];
 
-    const newList = [...currentList, data];
-
-    localStorage.setItem('favorites', JSON.stringify(newList));
-
-    setFavorites(newList);
-    dispatch({ type: Actions.SET_MY_LIST_FAVORITES, payload: newList });
-  }, []);
+    ref.set({ favorites: newList }, { merge: true });
+  }, [favorites]);
 
   return (
     <Container>
-      {favorites.find((item) => data.id === item.id) ? (
+      {favorites.find((item) => data.id === item) ? (
         <Button onClick={onHandleRemoveClick}>Remove favorite</Button>
       ) : (
         <Button onClick={onHandleAddClick}>Add favorite</Button>
